@@ -23,6 +23,7 @@ systemctl start zabbix-server
 
 echo "Installing Zabbix agent..."
 yum install -y zabbix-agent
+sed -i -e 's/\(^ServerActive=.*\)/#\1/' /etc/zabbix/zabbix_agentd.conf
 systemctl start zabbix-agent
 
 
