@@ -18,6 +18,7 @@ zcat /usr/share/doc/zabbix-server-mysql-*/create.sql.gz | mysql -uzabbix -pzabbi
 sed -i -e 's/\(.*\)\(DBPassword=\)\(.*\)/\2zabbixdb/' /etc/zabbix/zabbix_server.conf
 sed -i -e 's/\(.*\)\(php_value date\.timezone\)\(.*\)/\t\2 Europe\/Minsk/' /etc/httpd/conf.d/zabbix.conf
 sed -i -e 's/\(^Alias.*\)/#\1\n<VirtualHost *:80>\nDocumentRoot \/usr\/share\/zabbix\n<\/VirtualHost>/' /etc/httpd/conf.d/zabbix.conf
+cp /vagrant/zabbix.conf.php /etc/zabbix/web
 systemctl start httpd
 systemctl start zabbix-server
 
