@@ -14,16 +14,14 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "sbeliakou/centos-7.4-x86_64-minimal"
 
-  (1..2).each do |i|
-   config.vm.define "zabbix-#{i}" do |node|
-    node.vm.provision "shell", path: "zabbix-#{i}.sh"
-    node.vm.network "private_network", ip: "192.168.50.10#{i}"
-    node.vm.hostname = "zabbix-#{i}"
+  config.vm.define "zabbix-2" do |node|
+    node.vm.provision "shell", path: "zabbix-2.sh"
+    node.vm.network "private_network", ip: "192.168.50.102"
+    node.vm.hostname = "zabbix-2"
     node.vm.provider :virtualbox do |v|
      v.customize ["modifyvm",:id,"--natdnshostresolver1","on"]
-     v.name = "zabbix-#{i}"
+     v.name = "zabbix-2"
      v.customize ["modifyvm",:id,"--memory",2048]
-    end
    end
   end
 
