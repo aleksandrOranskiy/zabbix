@@ -15,15 +15,17 @@ Vagrant.configure("2") do |config|
   config.vm.box = "sbeliakou/centos-7.4-x86_64-minimal"
 
   
-   config.vm.define "zabbix-2" do |node|
-    node.vm.provision "shell", path: "zabbix-2.sh"
-    node.vm.network "private_network", ip: "192.168.50.102"
-    node.vm.hostname = "zabbix-2"
+   (1..2).each do |i|
+   config.vm.define "zabbix-#{i}" do |node|
+    node.vm.provision "shell", path: "zabbix-#{i}.sh"
+    node.vm.network "private_network", ip: "192.168.50.10#{i}"
+    node.vm.hostname = "zabbix-#{i}"
     node.vm.provider :virtualbox do |v|
      v.customize ["modifyvm",:id,"--natdnshostresolver1","on"]
-     v.name = "zabbix-2"
+     v.name = "zabbix-#{i}"
      v.customize ["modifyvm",:id,"--memory",2048]
     end
+   end
   end
 
   # Disable automatic box update checking. If you disable this, then
